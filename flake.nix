@@ -11,12 +11,8 @@
 	version = "23061100";
 
 	resolvConf = import ./resolv.conf { inherit pkgs version; };
-      in {
-        devShell = pkgs.mkShell {
-          buildInputs = with pkgs; [ docker dive ];
-	};
 
-        packages.dnsmasq = pkgs.dockerTools.buildImage {
+        dnsmasq = pkgs.dockerTools.buildImage {
           name = "dnsmasq";
 	  tag = version;
 
@@ -34,6 +30,25 @@
 	  config = {
 	    Cmd = [ "/bin/dnsmasq" "--keep-in-foreground" ];
 	    Expose = [ 53 ];
+	  };
+	};
+      in {
+        devShell = pkgs.mkShell {
+          buildInputs = with pkgs; [ docker dive ];
+	};
+
+        packages = {
+	  inherit dnsmasq;
+
+	  default = pkgs.stdenv.mkDerivation {
+	    inherit version;
+	    name = "atalii-images";
+            phases = "installPhase";
+          
+            installPhase = ''
+              mkdir -p $out
+	      cp ${dnsmasq} $out/dnsmasq
+	    '';
 	  };
 	};
       });
