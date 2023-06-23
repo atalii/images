@@ -8,7 +8,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
         static = pkgs.pkgsStatic;
 
-	version = "23061100";
+	version = "23062201";
 
 	resolvConf = import ./resolv.conf { inherit pkgs version; };
 
@@ -25,6 +25,8 @@
 	    groupadd -r nogroup
 	    useradd -r -g nogroup nobody
 	    mkdir -p /var/run
+
+	    echo 'address=/atalii.intranet/10.13.12.1' >> /etc/dnsmasq.conf
 	  '';
 
 	  config = {
