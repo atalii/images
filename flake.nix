@@ -27,6 +27,7 @@
 	    mkdir -p /var/run
 
 	    echo 'address=/atalii.intranet/10.13.12.1' >> /etc/dnsmasq.conf
+	    echo 'address=/distcc.atalii.intranet/10.13.12.3' >> /etc/dnsmasq.conf
 	  '';
 
 	  config = {
