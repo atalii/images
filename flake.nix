@@ -8,7 +8,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
         static = pkgs.pkgsStatic;
 
-	version = "23062201";
+	version = "23071600";
 
 	resolvConf = import ./resolv.conf { inherit pkgs version; };
 
@@ -34,6 +34,16 @@
 	    Expose = [ 53 ];
 	  };
 	};
+
+	distcc = pkgs.dockerTools.pullImage {
+	  imageName = "ksmanis/gentoo-distcc";
+	  imageDigest = "sha256:ade67de7720fd5c7a0af3c8964c3a07d5c58be3a1f0c56b534fcda4c731bf42a";
+	  finalImageName = "distcc";
+	  finalImageTag = version;
+	  sha256 = "sha256-Sa2mX1rGhn+Zqk9kD1gHdgibEUHaMgFLd0uW5Bx9C1E=";
+
+	  arch = "amd64";
+	};
       in {
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [ docker dive ];
@@ -41,6 +51,7 @@
 
         packages = {
 	  inherit dnsmasq;
+	  inherit distcc;
 
 	  default = pkgs.stdenv.mkDerivation {
 	    inherit version;
@@ -50,6 +61,7 @@
             installPhase = ''
               mkdir -p $out
 	      cp ${dnsmasq} $out/dnsmasq
+	      cp ${distcc} $out/distcc
 	    '';
 	  };
 	};

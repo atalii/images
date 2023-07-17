@@ -6,3 +6,4 @@ github:atalii/servers#[server]` if you want to steal a docker image from me.
 I currently run:
 
 * dnsmasq
+* distcc
