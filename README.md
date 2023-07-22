@@ -7,3 +7,4 @@ I currently run:
 
 * dnsmasq
 * distcc
+* searx

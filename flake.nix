@@ -5,7 +5,7 @@
   outputs = { self, flake-utils, nixpkgs }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-	version = "23071600";
+	version = "23072100";
         pkgs = nixpkgs.legacyPackages.${system};
         static = pkgs.pkgsStatic;
 
@@ -15,10 +15,7 @@
           buildInputs = with pkgs; [ docker dive ];
 	};
 
-        packages = {
-	  dnsmasq = images.dnsmasq;
-	  distcc = images.distcc;
-
+        packages = images // {
 	  default = pkgs.stdenv.mkDerivation {
 	    inherit version;
 	    name = "atalii-images";
@@ -28,6 +25,7 @@
               mkdir -p $out
 	      cp ${images.dnsmasq} $out/dnsmasq
 	      cp ${images.distcc} $out/distcc
+	      cp ${images.searx} $out/searx
 	    '';
 	  };
 	};
