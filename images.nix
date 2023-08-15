@@ -37,11 +37,11 @@ version: pkgs: static: {
       };
     };
 
-    searx = pkgs.dockerTools.pullImage {
-      imageName = "searxng/searxng";
-      imageDigest = "sha256:c21036863f019df6e5cc7210cca6e89c956d16b380616448f2cd9a8f70f29bb7";
-      finalImageName = "searx";
-      finalImageTag = version;
-      sha256 = "sha256-1Mbo7K+W8NoycoURPaZcxpXV54d3yjAaHoqcIpinhJU=";
-    };
+  searx = pkgs.dockerTools.pullImage {
+    imageName = "searxng/searxng";
+    imageDigest = "sha256:c21036863f019df6e5cc7210cca6e89c956d16b380616448f2cd9a8f70f29bb7";
+    finalImageName = "searx";
+    finalImageTag = version;
+    sha256 = "sha256-1Mbo7K+W8NoycoURPaZcxpXV54d3yjAaHoqcIpinhJU=";
+  };
 }
