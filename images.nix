@@ -29,6 +29,7 @@ version: pkgs: static: {
 	echo 'address=/atalii.intranet/10.13.12.1' >> /etc/dnsmasq.conf
 	echo 'address=/distcc.atalii.intranet/10.13.12.3' >> /etc/dnsmasq.conf
 	echo 'address=/searx.atalii.intranet/10.13.12.4' >> /etc/dnsmasq.conf
+	echo 'address=/kanboard.atalii.intranet/10.13.12.5' >> /etc/dnsmasq.conf
       '';
 
       config = {
