@@ -12,11 +12,12 @@ version: pkgs: static: {
   dnsmasq =
     let
       resolvConf = import ./resolv.conf { inherit pkgs version; };
+      dnsmasq = static.dnsmasq.override { dbusSupport = false; };
     in pkgs.dockerTools.buildImage {
       name = "dnsmasq";
       tag = version;
 
-      copyToRoot = [ resolvConf static.dnsmasq ];
+      copyToRoot = [ resolvConf dnsmasq ];
 
       runAsRoot = ''
         #!${pkgs.runtimeShell}

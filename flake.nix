@@ -5,7 +5,7 @@
   outputs = { self, flake-utils, nixpkgs }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-	version = "23081800";
+	version = "23081801";
         pkgs = nixpkgs.legacyPackages.${system};
         static = pkgs.pkgsStatic;
 
