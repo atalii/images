@@ -9,7 +9,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
         static = pkgs.pkgsStatic;
 
-	images = (import ./images.nix) version pkgs static;
+	images = (import ./images) version pkgs static;
       in {
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [ docker dive ];
