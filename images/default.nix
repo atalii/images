@@ -9,7 +9,14 @@ version: pkgs: static: {
     arch = "amd64";
   };
 
-  dnsmasq = import ./dnsmasq.nix { inherit version pkgs static; };
+  dnsmasq = import ./dnsmasq.nix {
+    inherit version pkgs static;
+
+    dnsEntries."atalii.intranet" = "10.13.12.1";
+    dnsEntries."distcc.atalii.intranet" = "10.13.12.3";
+    dnsEntries."searx.atalii.intranet" = "10.13.12.4";
+    dnsEntries."kanboard.atalii.intranet" = "10.13.12.5";
+  };
 
   searx = pkgs.dockerTools.pullImage {
     imageName = "searxng/searxng";
