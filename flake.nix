@@ -23,10 +23,10 @@
           
             installPhase = ''
               mkdir -p $out
-	      cp ${images.dnsmasq} $out/dnsmasq
-	      cp ${images.distcc} $out/distcc
-	      cp ${images.searx} $out/searx
-	    '';
+	    '' + (builtins.concatStringsSep
+	      "\n" (map
+	        (name: "cp ${images."${name}"} $out/${name}")
+	        (builtins.attrNames images)));
 	  };
 	};
       });
