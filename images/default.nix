@@ -16,6 +16,7 @@ version: pkgs: static: {
     dnsEntries."distcc.atalii.intranet" = "10.13.12.3";
     dnsEntries."searx.atalii.intranet" = "10.13.12.4";
     dnsEntries."kanboard.atalii.intranet" = "10.13.12.5";
+    dnsEntries."lms.atalii.intranet" = "10.13.12.6";
   };
 
   searx = pkgs.dockerTools.pullImage {
