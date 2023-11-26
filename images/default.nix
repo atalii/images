@@ -12,11 +12,15 @@ version: pkgs: static: {
   dnsmasq = import ./dnsmasq.nix {
     inherit version pkgs static;
 
-    dnsEntries."atalii.intranet" = "10.13.12.1";
-    dnsEntries."distcc.atalii.intranet" = "10.13.12.3";
-    dnsEntries."searx.atalii.intranet" = "10.13.12.4";
-    dnsEntries."kanboard.atalii.intranet" = "10.13.12.5";
-    dnsEntries."lms.atalii.intranet" = "10.13.12.6";
+    dnsEntries = {
+      "atalii.intranet" = "10.13.12.1";
+      "distcc.atalii.intranet" = "10.13.12.3";
+      "searx.atalii.intranet" = "10.13.12.4";
+      "kanboard.atalii.intranet" = "10.13.12.5";
+      "lms.atalii.intranet" = "10.13.12.6";
+    };
+
+    blocklist = [ "reddit.com" "youtube.com" "x.com" "twitter.com" "news.ycombinator.com" "lobste.rs" ];
   };
 
   searx = pkgs.dockerTools.pullImage {

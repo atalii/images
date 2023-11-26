@@ -1,14 +1,22 @@
-{ version, pkgs, static, dnsEntries }:
+{ version, pkgs, static, dnsEntries, blocklist }:
 
 let
   resolvConf = import ./resolv.conf { inherit pkgs version; };
   dnsmasq = static.dnsmasq.override { dbusSupport = false; };
 
+  block = domains:
+    let eachBlock = map (domain: {
+      "${domain}" = "0.0.0.0";
+      "www.${domain}" = "0.0.0.0";
+    }) domains; in builtins.foldl' (x: y: x // y) {} eachBlock;
+
+  allRecords = dnsEntries // (block blocklist);
+
   addDnsEntryCmds = builtins.concatStringsSep "\n"
     (map
       (name:
-        "echo 'address=/${name}/${dnsEntries.${name}}' >> /etc/dnsmasq.conf")
-      (builtins.attrNames dnsEntries));
+        "echo 'address=/${name}/${allRecords.${name}}' >> /etc/dnsmasq.conf")
+      (builtins.attrNames allRecords));
 
 in pkgs.dockerTools.buildImage {
   name = "dnsmasq";
